@@ -10,7 +10,7 @@
   <div id="game_board"></div>
   <script>
   document.body.onload = addElement;
-  var cardBack = "file:///Users/apprentice/Desktop/bird.jpg";
+  var cardBack = document.URL.substr(0,document.URL.lastIndexOf('/')) + "/image.png";
   var faceUp1 = "";
   var faceUp2 = "";
 
