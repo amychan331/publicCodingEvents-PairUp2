@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Memory Game</title>
-    <style>
-      .card {height: 100px;}
-    </style>
-  </head>
-  <body>
-    <div id="game_board"></div>
-<script>
+<head>
+  <title>Memory Game</title>
+  <style>
+  .card {height: 100px;}
+  </style>
+</head>
+<body>
+  <div id="game_board"></div>
+  <script>
   document.body.onload = addElement;
   var cardBack = "file:///Users/apprentice/Desktop/bird.jpg";
   var faceUp1 = "";
@@ -59,53 +59,53 @@
     document.body.insertBefore(newTable, currentDiv);
   }
 
-function showCat(mouseEvent){
-  //get the element that called the function
-  //hide the face of the card and show the cat there by changing source attribute
-  console.log("this is the properties mouseEvent gives me", mouseEvent);
-  //mouseEvent.target is giving me the element that I click on.
-  //Example: <img class="card" src="https://http.cat/200">
-  //So then I use the "src" property of target to change the source
-  //by maniuplating the cat pics in the cat array
-  //mouseEvent.target.src = catArr[Math.floor((Math.random() * 10) + 1)];
-  console.log('this is carBack, ', cardBack);
-  console.log('this is a target source, ', mouseEvent.target.src);
+  function showCat(mouseEvent){
+    //get the element that called the function
+    //hide the face of the card and show the cat there by changing source attribute
+    console.log("this is the properties mouseEvent gives me", mouseEvent);
+    //mouseEvent.target is giving me the element that I click on.
+    //Example: <img class="card" src="https://http.cat/200">
+    //So then I use the "src" property of target to change the source
+    //by maniuplating the cat pics in the cat array
+    //mouseEvent.target.src = catArr[Math.floor((Math.random() * 10) + 1)];
+    console.log('this is carBack, ', cardBack);
+    console.log('this is a target source, ', mouseEvent.target.src);
 
-  if (mouseEvent.target.src === cardBack) {
-    mouseEvent.target.src = mouseEvent.target.faceSrc;
-    console.log("This is faceSrc, ", mouseEvent.target.faceSrc);
-    if (faceUp1 == "") {
-      faceUp1 = mouseEvent.target.faceSrc;
-      //event1 holds an object of all the properties attached to faceUp1, this
-      //includes the target and the src so that we can use it later to refer
-      //directly to the faceUp1 card
-      event1 = mouseEvent;
-      console.log("faceUp 1 is set", faceUp1)
-    } else if (!faceUp1 == "" && faceUp2 == "") {
-      //event2 holds an object of all the properties attached to faceUp2, this
-      //includes the target and the src so that we can use it later to refer
-      //directly to the faceUp2 card
-      faceUp2 = mouseEvent.target.faceSrc;
-      event2 = mouseEvent;
-      console.log("face 1 and 2 is set", faceUp1 + " " + faceUp2);
-      if (faceUp1 == faceUp2) {
-        console.log("Match found! ", faceUp1 + " " + faceUp2);
-        faceUp1 = "";
-        faceUp2 = "";
+    if (mouseEvent.target.src === cardBack) {
+      mouseEvent.target.src = mouseEvent.target.faceSrc;
+      console.log("This is faceSrc, ", mouseEvent.target.faceSrc);
+      if (faceUp1 == "") {
+        faceUp1 = mouseEvent.target.faceSrc;
+        //event1 holds an object of all the properties attached to faceUp1, this
+        //includes the target and the src so that we can use it later to refer
+        //directly to the faceUp1 card
+        event1 = mouseEvent;
+        console.log("faceUp 1 is set", faceUp1)
+      } else if (!faceUp1 == "" && faceUp2 == "") {
+        //event2 holds an object of all the properties attached to faceUp2, this
+        //includes the target and the src so that we can use it later to refer
+        //directly to the faceUp2 card
+        faceUp2 = mouseEvent.target.faceSrc;
+        event2 = mouseEvent;
+        console.log("face 1 and 2 is set", faceUp1 + " " + faceUp2);
+        if (faceUp1 == faceUp2) {
+          console.log("Match found! ", faceUp1 + " " + faceUp2);
+          faceUp1 = "";
+          faceUp2 = "";
+        } else {
+          console.log("Match not found!");
+          //if a match is not found, we must flipped the cards back over to show their
+          //backs. SetTimeOut does this for us.
+          setTimeout(function (e) {event1.target.src = cardBack;}, 5000);
+          setTimeout(function (e) {event2.target.src = cardBack;}, 5000);
+        }
       } else {
-        console.log("Match not found!");
-        //if a match is not found, we must flipped the cards back over to show their
-        //backs. SetTimeOut does this for us.
-        setTimeout(function (e) {event1.target.src = cardBack;}, 5000);
-        setTimeout(function (e) {event2.target.src = cardBack;}, 5000);
+        //flip card back over to normal face after 5 seconds
+        //showCat2();
+        console.log("this card is already faced up")
       }
-    } else {
-    //flip card back over to normal face after 5 seconds
-    //showCat2();
-    console.log("this card is already faced up")
-  }
-  }
-};
-</script>
+    }
+  };
+  </script>
 </body>
 </html>
