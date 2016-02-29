@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Memory Game</title>
+  <style>
+  .card {height: 100px;}
+  </style>
+</head>
+<body>
+  <div id="game_board"></div>
+  <script>
+  document.body.onload = addElement;
+  var cardBack = document.URL.substr(0,document.URL.lastIndexOf('/')) + "/image.png";
+  var faceUp1 = "";
+  var faceUp2 = "";
+
+  function addElement() {
+    /*Create the table and game structure.
+    Start with the 'td' and then make it child of the image.
+    Add a class name of "card" to the image so we can reference it later
+    Add an on-click attribute so that we can call a function to change the image source to a cat later on.
+    Then make the image a child of the row and then the row a child of a table.
+    This all creates exactly 1 clickable tile.*/
+    // define variables for the links
+    var newTable = document.createElement("table");
+    //faceUp1 and faceUp2 represents the first and second card that the player flips over
+    var cat1 = "https://http.cat/100";
+    var cat2 = "https://http.cat/101";
+    var cat3 = "https://http.cat/200";
+    var cat4 = "https://http.cat/201";
+    var cat5 = "https://http.cat/202";
+    var cat6 = "https://http.cat/204";
+    var cat7 = "https://http.cat/206";
+    var cat8 = "https://http.cat/207";
+    var catArr = [cat1, cat1, cat2, cat2, cat3, cat3, cat4, cat4, cat5, cat5, cat6, cat6, cat7, cat7, cat8, cat8];
+    //this loop controls the number of rows
+    for (var i = 0; i < 4; i++) {
+      var newRow = document.createElement("tr");
+      //this inner for loop controls the number of columns
+      for (var j = 0; j <4; j++) {
+        var newData = document.createElement("td");
+        var newImg = document.createElement("img");
+        newImg.className = "card";
+        // faceSrc is a customized attribute
+        newImg.faceSrc = catArr[Math.floor((Math.random() * 10) + 1)];
+        newImg.src = cardBack;
+        newImg.onclick = showCat;
+        newData.appendChild(newImg);
+        newRow.appendChild(newData);
+        newTable.appendChild(newRow);
+      }
+    }
+    /*dynamically create board
+    This is done by creating a new variable currentDiv and
+    assigning it to the div with ID of "game_board".
+    Then we use insertBefore method to put our new table
+    into currentDiv*/
+    var currentDiv = document.getElementById("game_board");
+    document.body.insertBefore(newTable, currentDiv);
+  }
+
+  function showCat(mouseEvent){
+    //get the element that called the function
+    //hide the face of the card and show the cat there by changing source attribute
+    console.log("this is the properties mouseEvent gives me", mouseEvent);
+    //mouseEvent.target is giving me the element that I click on.
+    //Example: <img class="card" src="https://http.cat/200">
+    //So then I use the "src" property of target to change the source
+    //by maniuplating the cat pics in the cat array
+    //mouseEvent.target.src = catArr[Math.floor((Math.random() * 10) + 1)];
+    console.log('this is carBack, ', cardBack);
+    console.log('this is a target source, ', mouseEvent.target.src);
+
+    if (mouseEvent.target.src === cardBack) {
+      mouseEvent.target.src = mouseEvent.target.faceSrc;
+      console.log("This is faceSrc, ", mouseEvent.target.faceSrc);
+      if (faceUp1 == "") {
+        faceUp1 = mouseEvent.target.faceSrc;
+        //event1 holds an object of all the properties attached to faceUp1, this
+        //includes the target and the src so that we can use it later to refer
+        //directly to the faceUp1 card
+        event1 = mouseEvent;
+        console.log("faceUp 1 is set", faceUp1)
+      } else if (!faceUp1 == "" && faceUp2 == "") {
+        //event2 holds an object of all the properties attached to faceUp2, this
+        //includes the target and the src so that we can use it later to refer
+        //directly to the faceUp2 card
+        faceUp2 = mouseEvent.target.faceSrc;
+        event2 = mouseEvent;
+        console.log("face 1 and 2 is set", faceUp1 + " " + faceUp2);
+        if (faceUp1 == faceUp2) {
+          console.log("Match found! ", faceUp1 + " " + faceUp2);
+          faceUp1 = "";
+          faceUp2 = "";
+        } else {
+          console.log("Match not found!");
+          //if a match is not found, we must flipped the cards back over to show their
+          //backs. SetTimeOut does this for us.
+          setTimeout(function (e) {event1.target.src = cardBack;}, 5000);
+          setTimeout(function (e) {event2.target.src = cardBack;}, 5000);
+        }
+      } else {
+        //flip card back over to normal face after 5 seconds
+        //showCat2();
+        console.log("this card is already faced up")
+      }
+    }
+  };
+  </script>
+</body>
+</html>
