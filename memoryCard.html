@@ -10,7 +10,10 @@
   <div id="game_board"></div>
   <script>
   document.body.onload = addElement;
+	//cardBack holds an image path that takes path of the
+	//current URL up to the last slash '/' and appends the path to the image
   var cardBack = document.URL.substr(0,document.URL.lastIndexOf('/')) + "/image.png";
+	//faceUp1 and faceUp2 stores the pairs of cards that the player flips up
   var faceUp1 = "";
   var faceUp2 = "";
 
@@ -23,7 +26,6 @@
     This all creates exactly 1 clickable tile.*/
     // define variables for the links
     var newTable = document.createElement("table");
-    //faceUp1 and faceUp2 represents the first and second card that the player flips over
     var cat1 = "https://http.cat/100";
     var cat2 = "https://http.cat/101";
     var cat3 = "https://http.cat/200";
@@ -37,7 +39,7 @@
     for (var i = 0; i < 4; i++) {
       var newRow = document.createElement("tr");
       //this inner for loop controls the number of columns
-      for (var j = 0; j <4; j++) {
+      for (var j = 0; j < 4; j++) {
         var newData = document.createElement("td");
         var newImg = document.createElement("img");
         newImg.className = "card";
