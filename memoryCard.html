@@ -41,8 +41,11 @@
         var newData = document.createElement("td");
         var newImg = document.createElement("img");
         newImg.className = "card";
+        var arrIndex = Math.floor(Math.random() * catArr.length);
         // faceSrc is a customized attribute
-        newImg.faceSrc = catArr[Math.floor((Math.random() * 10) + 1)];
+        newImg.faceSrc = catArr[arrIndex];
+        // Remove the cat pic once it's assigned to a faceSrc
+        catArr.splice(arrIndex, 1);
         newImg.src = cardBack;
         newImg.onclick = showCat;
         newData.appendChild(newImg);
